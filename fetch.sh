@@ -7,7 +7,7 @@ display_info() {
 	d_os=$(uname -o)
 	d_kname=$(cat /proc/sys/kernel/ostype)
 	d_kversion=$(cat /proc/sys/kernel/osrelease)
-	d_uptime=$(uptime | awk '{print $3}')" min"
+	d_uptime=$(uptime | awk '{print $3}' | tr -d ,)" min"
 	d_shell=$(basename $SHELL)
 	d_res=$(xrandr | sed -n '1p' | sed 's/.*current.//g;s/,.*//g;s/ //g')
 	d_deskEnv=$XDG_SESSION_DESKTOP
