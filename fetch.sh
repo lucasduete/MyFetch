@@ -17,6 +17,11 @@ display_info() {
 	d_memFree=$(echo "scale=2;$(cat /proc/meminfo | sed -n '2p' | tr -d {A-Za-z:' '})" / 1000000 | bc)" GB"
 	d_arch=$(getconf LONG_BIT)"-bits"
 	d_browser=$(xdg-settings get default-web-browser | sed 's/.desktop//g')
+
+	d_titleSize=$(expr length "$d_title"); qtd=
+	for i in $(seq 1 $d_titleSize); do
+		qtd="$qtd─"
+	done
 }
 
 set_info() {
@@ -26,6 +31,7 @@ display_info
 cat <<EOF
 
 $d_title
+$qtd
 Distro: ${d_distro^}
 OS: ${d_os^}
 Kernel Name: $d_kname
@@ -42,7 +48,30 @@ Architeture: $d_arch
 Browser Default = $d_browser
 
 EOF
-
 }
 
-set_info
+logo="
+MMMMXXOKXXkKxW00OKXkKOMKKKO0xKXXMMM
+MMMMdkdkxkokoWxxxNOlxdOokOd0lOdMMMM
+MMMOdxxxxxxxxxxxxxxxxxxxxxxxxxo0MMM
+MMMlx0:cdddo:odddddddo:odddc:0xlMMM
+MMMlxolkoo0MXdodNMNdodXM0ookldxlM00
+KKMlxodMMMO;ckWNxoxNWkc;OMMModxlMKK
+0KMlxodMMMMX,koodKdodk'XMMMModxlM0X
+KNMlxodMMMMW.:MMX;NMM:.WMMMModxlM0X
+00MlxodMMMM0l;loKMKol;lKMMMModxlMKK
+MMMlxodWOooOWNdclolcdNWOooOModxlMKK
+MMMlxd.l0MKooxNWkokWNxloKM0l.xxlMMM
+MMM0lokoc'kWNxooKMKooxNWk'cokolKMMM
+MMMMMWxldkl,;XWOoooOWX;,lkdlxWMMMMM
+MMMMMMMMNdldxl.xMMMd.lkdldNMMMMMMMM
+MMMMMMMMMMMXolxxlllxxloXMMMMMMMMMMM
+MMMMMMMMMMMMMMKolxloKMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMOMMMMMMMMMMMMMMMMM
+                                   
+"
+
+#printf "%s" "$logo"
+#set_info
+
+paste <(printf "%s" "$logo") <(set_info) | lolcat
