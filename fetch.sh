@@ -45,7 +45,7 @@ CPU: $d_cpu
 Memory Total: $d_memTotal
 Memory Free: $d_memFree
 Architeture: $d_arch
-Browser Default = $d_browser
+Browser Default: $d_browser
 
 EOF
 }
